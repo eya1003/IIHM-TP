@@ -64,8 +64,7 @@ class BubbleWidget(QWidget):
             self.cursor.closest.selected = False
             self.cursor.closest.highlighted = True
             self.cursor.closest.toSelect = False
-
-            print("Cible atteinte en", int(round(time.time() * 1000))- self.timer, "millisecondes")
+            print("Réussite ! Temps de réaction :", int(round(time.time() * 1000)) - self.timer, "millisecondes")
             self.pressedTargets.append([len(self.pressedTargets), int(round(time.time() * 1000))- self.timer, self.nb_erreurs_cible])
             self.timer = int(round(time.time() * 1000))
 
@@ -75,12 +74,9 @@ class BubbleWidget(QWidget):
 
             else:
                 self.close()
-                print("Partie terminée")
+                print("Bravo ! Stage terminé")
         else :
             self.nb_erreurs_cible += 1
-
-#-------------------------- Fonctions nécessaires pour l'expérience --------------------------#
-
     def closeEvent(self, event):
         self.finished.emit()
         super().closeEvent(event)
