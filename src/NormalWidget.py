@@ -10,14 +10,12 @@ class NormalWidget(BubbleWidget):
         super().__init__(NormalCursor, targets_path, sequence_path)
 
     def mousePressEvent(self, event):
-        # Le clic est valide uniquement si le curseur survole une cible
-        # ET si cette cible est celle qui est censée être atteinte (toSelect == True)
         if self.cursor.toSelect and self.cursor.toSelect.toSelect:
             self.cursor.toSelect.selected = False
             self.cursor.toSelect.highlighted = True
-            self.cursor.toSelect.toSelect = False  # On "désactive" la cible atteinte
+            self.cursor.toSelect.toSelect = False  
 
-            print("Cible atteinte en", int(round(time.time() * 1000)) - self.timer, "millisecondes")
+            print("Réussite ! Temps de réaction :", int(round(time.time() * 1000)) - self.timer, "millisecondes")
             self.pressedTargets.append([len(self.pressedTargets),
                                         int(round(time.time() * 1000)) - self.timer,
                                         self.nb_erreurs_cible])
@@ -29,7 +27,6 @@ class NormalWidget(BubbleWidget):
                 self.cibles_restantes.pop(0).toSelect = True
             else:
                 self.close()
-                print("Partie terminée")
+                print("Bravo ! Stage terminé")
         else:
-            # Si le clic est sur une cible non désignée ou sur rien, on incrémente le compteur d'erreurs
             self.nb_erreurs_cible += 1
